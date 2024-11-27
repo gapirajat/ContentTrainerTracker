@@ -3,7 +3,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import Select from "react-select";
 import debounce from "lodash.debounce";
 import axios from "axios";
-import { useAuth } from "../../../../../../context/authContext";
+import { useAuth } from "../../../../../context/authContext";
 
 // Components
 
@@ -20,12 +20,14 @@ const CloseButton = ({ onClose }) => (
       stroke="currentColor"
       viewBox="0 0 24 24"
     >
+
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth="2"
         d="M6 18L18 6M6 6l12 12"
       />
+
     </svg>
   </button>
 );
@@ -270,7 +272,7 @@ function StudentDialog({props}) {
       >
         <CloseButton onClose={props.onClose} />
         <h2 id="dialog-title" className="text-2xl font-semibold mb-6 text-gray-800">
-          {isEditMode ? "Edit Student in Batch" : "Add Student to Batch"}
+          Student in Batch
         </h2>
         <form onSubmit={handleSubmit}>
           {/* Avatar Preview (Optional) */}
@@ -305,7 +307,7 @@ function StudentDialog({props}) {
 
           {/* Buttons */}
           <div className="flex justify-end mt-6">
-            {isEditMode && (
+            {/* {isEditMode && (
               <button
                 type="button"
                 onClick={handleDelete}
@@ -314,8 +316,8 @@ function StudentDialog({props}) {
               >
                 {isSubmitting ? "Deleting..." : "Delete"}
               </button>
-            )}
-{ !isEditMode &&           <button
+            )} */}
+{/* { !isEditMode &&           <button
               type="submit"
               disabled={isSubmitting}
               className={`px-6 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition-colors duration-200 ${
@@ -323,7 +325,7 @@ function StudentDialog({props}) {
               }`}
             >
               {isEditMode ? null : (isSubmitting ? "Adding..." : "Add Student")}
-            </button>}
+            </button>} */}
           </div>
         </form>
       </div>

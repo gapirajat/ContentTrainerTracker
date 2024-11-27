@@ -1,12 +1,12 @@
 // src/components/TrainerDialog.jsx
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
-
 // Import any necessary libraries for fetching data
 // For example, axios or fetch API can be used
 import axios from "axios";
-import { useGeneral } from "../../../../../../context/generalContext";
-import { useAuth } from "../../../../../../context/authContext.jsx";
+import { useAuth } from "../../../../../context/authContext";
+import { useGeneral } from "../../../../../context/generalContext";
+
 
 // CRUD functions
 const createOrUpdateTrainer = async (e, formData, authToken, isEditMode, selectedTrainerOption, batch_name) => {
@@ -196,7 +196,7 @@ function TrainerForm({
       </div>
       {/* Buttons */}
       <div className="flex justify-end mt-6">
-        {isEditMode && (
+        {/* {isEditMode && (
           <button
             type="button"
             onClick={handleDelete}
@@ -204,7 +204,7 @@ function TrainerForm({
           >
             Delete
           </button>
-        )}
+        )} */}
         {!isEditMode &&
         <button
           type="submit"
@@ -234,9 +234,9 @@ function TrainerDialog({ props }) {
   const [selectedTrainerOption, setSelectedTrainerOption] = useState(null);//dropwdown
 
   // Fetch all trainers to populate the DROPDOWN
-  useEffect(() => {
-    fetchTrainers(authToken, setTrainersOptions);
-  }, [authToken]);
+  // useEffect(() => {
+  //   fetchTrainers(authToken, setTrainersOptions);
+  // }, [authToken]);
 
   // Populate form when a trainer is selected
   useEffect(() => {
@@ -315,7 +315,7 @@ function TrainerDialog({ props }) {
       <div className="bg-white rounded-xl shadow-lg w-full max-w-lg p-6 relative">
         <CloseButton onClose={props.onClose} />
         <h2 className="text-2xl font-semibold mb-6 text-gray-800">
-          {isEditMode ? "Edit Trainer" : "Assign Trainer"}
+          Trainer
         </h2>
         <TrainerForm
           formData={formData}

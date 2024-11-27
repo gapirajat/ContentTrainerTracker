@@ -1,13 +1,13 @@
 import { useParams, useNavigate } from "react-router-dom";
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import { useAuth } from "../../../../../../context/authContext";
 import Carousel from "./batchCarousel";
 import Trainers from "./batchTrainer";
 import Students from "./batchStudent";
 import SessionDialog from "./batchDialogSession";
 import TrainerDialog from "./batchDialogTrainer";
 import StudentDialog from "./batchDialogStudent";
+import { useAuth } from "../../../../../context/authContext";
 
 // CRUD Functions
 
@@ -37,7 +37,7 @@ const deleteStudent = async (studentId, authToken, setStudents, students) => {
 
 // Main Component
 
-export default function Batch() {
+export default function TrainerBatch() {
   const { course_name, batch_name } = useParams();
   // const [Course] = useState(course_name);
   // const [batch] = useState(batch_name);

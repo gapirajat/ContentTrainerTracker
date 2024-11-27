@@ -7,6 +7,8 @@ import DialogBox from './dialogBox';
 import CourseCard from './courseCard'; 
 import { fetchData } from '../../adminApi/adminApi';
 import api from '../../../../api/apiService';
+import { useGeneral } from '../../../../context/generalContext';
+import { useNavigate } from 'react-router-dom';
 
 // CRUD Functions
 async function fetchCourses(authToken, setCourses, setCoordinator) {
@@ -45,6 +47,8 @@ function AddCourse({ setIsDialogOpen }) {
 
 export default function AdminHome() {
 
+  const {sidebarSelection} = useGeneral();
+
   const [selection, setSelection] = useState({}) //To set Course Name in dialog form
   const [courses, setCourses] = useState()//array of courses
   const [coordinator, setCoordinator] = useState()
@@ -53,10 +57,17 @@ export default function AdminHome() {
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
+  const navigate = useNavigate();
+
   //GET course/all & GET users/coordinator/all
   useEffect(() => {
     fetchCourses(authToken, setCourses, setCoordinator)
-  }, [selection, authToken])
+  }, [selection])
+
+        //Conflicting!!!
+        useEffect(() => {
+          navigate(`/${sidebarSelection}`)
+        }, [sidebarSelection])
 
   return (
     <div className='lg:ml-[4.5rem] flex flex-wrap items-center'>

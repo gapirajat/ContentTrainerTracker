@@ -51,29 +51,49 @@ export default function Register() {
   
       // Check for success (status code 2xx)
       if (response.status >= 200 && response.status < 300) {
-          let response2
+        console.log(response)
+
         if (formData.role === 'coordinator') {//formData.course is course_name
-          response2 = await axios.put(`${import.meta.env.VITE_APP_HOST2}/course/update-uid/${formData.course}`, {
+          const response2 = await axios.put(`${import.meta.env.VITE_APP_HOST2}/course/update-uid/${formData.course}`, {
             uid: response.data.uid
           }, {
             headers: {
               Authorization: `Bearer ${authToken}`
             },
           });          
+          console.log("Registration successful:", JSON.stringify(response2.data));
         }
 
-        if (formData.role === 'student' || formData.role === 'trainer' ) {
-          response2 = await axios.put(`${import.meta.env.VITE_APP_HOST2}/batches/update-uid/${formData.batch}`, {
+        if (formData.role === 'trainer' ) {
+          const response2 = await axios.put(`${import.meta.env.VITE_APP_HOST2}/batches/update-uid/${formData.batch}`, {//batch_name
             uid: response.data.uid
           }, {
             headers: {
               Authorization: `Bearer ${authToken}`
             },
           });    
-          
+          console.log("Registration successful:", JSON.stringify(response2.data));
         }
 
-        console.log("Registration successful:", JSON.stringify(response.data) + JSON.stringify(response2.data));
+        if (formData.role === 'student') {
+          
+          const response2 = await axios.post(
+            `${import.meta.env.VITE_APP_HOST2}/batchStudents/create`,
+            {
+              uid: response.data.uid,
+              batch_name: formData.batch,//batch_name
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${authToken}`,
+              },
+            }
+          );
+          console.log("Registration successful:", JSON.stringify(response2.data));
+        }
+
+
+        console.log("Registration successful:", JSON.stringify(response?.data));
         setSnackbarMessage('Registration successful');
         showSnackbar();
   

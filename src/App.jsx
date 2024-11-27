@@ -1,103 +1,195 @@
-import { useEffect, useState } from 'react'
-import './App.css'
-// import Login from './pages/login/login'
-import { Routes, Route, useNavigate } from 'react-router-dom';
-import Coordinator from './pages/coordinator/coordinator';
-import Trainer from './pages/trainer/trainer';
-import Student from './pages/student/student';
+import { useEffect } from 'react';
+import './App.css';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import { useAuth } from './context/authContext';
+import { useGeneral } from './context/generalContext';
 
-import Layout from './Layout/layout';
-import AdminLayout from './Layout/adminLayout';
-
+import Login from './pages/login/login';
+import Coordinator from './pages/coordinator/coordinator';
+// import Student from './pages/studentx/student.jsx';
+import TrainerHome from './pages/trainer/trainerPages/trainerHome/trainerHome.jsx';
 import AdminHome from './pages/admin/adminPages/adminHome/adminHome';
 import AdminRegister from './pages/admin/adminPages/adminRegister/adminRegister.jsx';
 import AdminNotifications from './pages/admin/adminPages/adminNotifications';
 import AdminProfile from './pages/admin/adminPages/adminProfile';
 import AdminSettings from './pages/admin/adminPages/adminSettings';
-import { useGeneral } from './context/generalContext';
-import Login from './pages/login/login';
-
 import Course from './pages/admin/adminPages/adminHome/course/course';
 import Batch from './pages/admin/adminPages/adminHome/course/batch/batch';
 
+import AdminLayout from './Layout/adminLayout';
+import TrainerLayout from './Layout/trainerLayout.jsx';
+import TrainerBatch from './pages/trainer/trainerPages/trainerHome/batch/batch.jsx';
+import StudentLayout from './Layout/studentLayout.jsx';
+import StudentHome from './pages/student/studentPages/studentHome/studentHome.jsx';
+import StudentBatch from './pages/student/studentPages/studentHome/batch/batch.jsx';
 
 
 
-function App() {
+// Import other layouts if needed
+
+function App() {            
+
   const { authToken, user } = useAuth();
-  const {sidebarSelection} = useGeneral();
 
-      // Example: Switch based on userType
+  // Function to determine which routes to render based on user role
+  const renderRoutes = () => {
+    if (!authToken) {
+      return (
+        <Routes>
+          <Route path="/Login" element={<Login />} />
+          <Route path="*" element={<Navigate to="/Login" replace />} />
+        </Routes>
+      );
+    }
 
-
-
-
-    //this is causing the default whenever you hit a parameter route
-    const home = (user) => {
-        console.log(user.role)
-        if (authToken && user?.role) {
-          console.log("if loop entered")
-              switch (user.role) {
-            case 'admin':
-                return AdminRoutes();
-            case 'coordinator':
-                return AdminRoutes();
-            case 'trainer':
-                return AdminRoutes();
-            case 'student':
-                return AdminRoutes();
-            default:
-                return AdminRoutes();
-        }
-        } else {
-          return AdminRoutes()
-        }
-
-      }
-            //navigation
-        const navigate = useNavigate();
-
-        useEffect(() => {
-          navigate(`/${sidebarSelection}`)
-        }, [sidebarSelection])
-      
-      
-
+    switch (user?.role) {
+      case 'admin':
+        return <AdminRoutes />;
+      case 'coordinator':
+        return <CoordinatorRoutes />;
+      case 'trainer':
+        return <TrainerRoutes />;
+      case 'student':
+        return <StudentRoutes />;
+      default:
+        return (
+          <Routes>
+            <Route path="*" element={<Navigate to="/login" replace />} />
+          </Routes>
+        );
+    }
+  };
 
   return (
     <>
-    <Routes>
-      <Route element={<Layout />}>
-        {/* protected routes */}
-        {home(user)}
-        <Route path='/login' element={<Login />}/>
-
-      </Route>
-
-    </Routes>
+      {renderRoutes()}
     </>
-
-  )
+  );
 }
 
-export default App
+export default App;
 
+// Admin Routes
 function AdminRoutes() {
-  return(
-  <Route element={<AdminLayout />}>
+  const {sidebarSelection} = useGeneral();
+  const navigate = useNavigate();
+          //Conflicting!!!
+          useEffect(() => {
+            navigate(`/${sidebarSelection}`)
+          }, [sidebarSelection])
+  return (
+    <Routes>
+      <Route element={<AdminLayout />}>
+        <Route path="/Home" element={<AdminHome />} />
+        <Route path="/Register" element={<AdminRegister />} />
+        <Route path="/Notifications" element={<AdminNotifications />} />
+        <Route path="/Profile" element={<AdminProfile />} />
+        <Route path="/Settings" element={<AdminSettings />} />
 
-      <Route path="/Home" element={<AdminHome />} />
-      <Route path="/Register" element={<AdminRegister />} />
-      <Route path="/Notifications" element={<AdminNotifications />} />
-      <Route path="/Profile" element={<AdminProfile />} />
-      <Route path="/Settings" element={<AdminSettings />} />
-      <Route path="/" element={<AdminHome />} />
+        {/* Nested Routes for Courses and Batches */}
+        <Route path="/Home/:course_name" element={<Course />} />
+        <Route path="/Home/:course_name/:batch_name" element={<Batch />} />
 
-      <Route path="/Home/:course_name" element={<Course />} />
-      <Route path="/Home/:course_name/:batch_name" element={<Batch />} />
-  </Route>
+        {/* Redirect root to /Home */}
+        <Route path="/" element={<Navigate to="/Home" replace />} />
+      </Route>
 
-  )
-  
+      {/* Catch-all Route */}
+      <Route path="*" element={<Navigate to="/Home" replace />} />
+    </Routes>
+  );
+}
+
+// Trainer Routes
+function TrainerRoutes() {
+  const {sidebarSelection} = useGeneral();
+  const navigate = useNavigate();
+          //Conflicting!!!
+          useEffect(() => {
+            navigate(`/${sidebarSelection}`)
+          }, [sidebarSelection]);
+
+  return (
+    <Routes>
+      <Route element={<TrainerLayout />}>
+        <Route path="/Home" element={<TrainerHome />} />
+        <Route path="/Register" element={<TrainerHome />} />
+        <Route path="/Notifications" element={<TrainerHome />} />
+        <Route path="/Profile" element={<TrainerHome />} />
+        <Route path="/Settings" element={<TrainerHome />} />
+
+        {/* Nested Routes for Courses and Batches */}
+        <Route path="/Home/:course_name/:batch_name" element={<TrainerBatch />} />
+
+        {/* Redirect root to /Home */}
+        <Route path="/" element={<Navigate to="/Home" replace />} />
+      </Route>
+
+      {/* Catch-all Route */}
+      <Route path="*" element={<Navigate to="/Home" replace />} />
+    </Routes>
+  );
+}
+
+// Student Routes
+function StudentRoutes() {
+  const {sidebarSelection} = useGeneral();
+
+  const navigate = useNavigate();
+          //Conflicting!!!
+          useEffect(() => {
+            navigate(`/${sidebarSelection}`)
+          }, [sidebarSelection])
+
+  return (
+    <Routes>
+      <Route element={<StudentLayout />}> {/* Use a different layout if available */}
+        <Route path="/Home" element={<StudentHome />} />
+        <Route path="/Register" element={<AdminRegister />} />
+        <Route path="/Notifications" element={<AdminNotifications />} />
+        <Route path="/Profile" element={<AdminProfile />} />
+        <Route path="/Settings" element={<AdminSettings />} />
+
+        {/* Nested Routes for Courses and Batches */}
+        <Route path="/Home/:course_name/:batch_name" element={<StudentBatch />} />
+
+        {/* Redirect root to /Home */}
+        <Route path="/" element={<Navigate to="/Home" replace />} />
+      </Route>
+
+      {/* Catch-all Route */}
+      <Route path="*" element={<Navigate to="/Home" replace />} />
+    </Routes>
+  );
+}
+
+// Coordinator Routes
+function CoordinatorRoutes() {
+  const {sidebarSelection} = useGeneral();
+  const navigate = useNavigate();
+          //Conflicting!!!
+          useEffect(() => {
+            navigate(`/${sidebarSelection}`)
+          }, [sidebarSelection])
+  return (
+    <Routes>
+      <Route element={<AdminLayout />}> {/* Use a different layout if available */}
+        <Route path="/Home" element={<AdminHome />} />
+        <Route path="/Register" element={<AdminRegister />} />
+        <Route path="/Notifications" element={<AdminNotifications />} />
+        <Route path="/Profile" element={<AdminProfile />} />
+        <Route path="/Settings" element={<AdminSettings />} />
+
+        {/* Nested Routes for Courses and Batches */}
+        <Route path="/Home/:course_name" element={<Course />} />
+        <Route path="/Home/:course_name/:batch_name" element={<Batch />} />
+
+        {/* Redirect root to /Home */}
+        <Route path="/" element={<Navigate to="/Home" replace />} />
+      </Route>
+
+      {/* Catch-all Route */}
+      <Route path="*" element={<Navigate to="/Home" replace />} />
+    </Routes>
+  );
 }

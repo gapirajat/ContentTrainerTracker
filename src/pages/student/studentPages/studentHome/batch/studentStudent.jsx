@@ -28,12 +28,12 @@ function Students({ props }) {
     <div className="mt-12 mx-8 mb-16">
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-2xl font-semibold text-gray-800">Students</h2>
-        <button
+        {/* <button
           onClick={props.handleAddStudent}
           className="px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition-colors duration-200"
         >
           Add Student
-        </button>
+        </button> */}
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {props.students.map((student) => (

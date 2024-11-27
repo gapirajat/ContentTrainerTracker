@@ -23,14 +23,14 @@ api.interceptors.response.use(
     (response) => {
       // Show success message for POST, PUT, DELETE requests
       if (['post', 'put', 'delete'].includes(response.config.method)) {
-        showMessage('Operation successful!', 'success');
+        // showMessage('Operation successful!', 'success');
       }
       return response;
     },
     (error) => {
       // Show error message
       const message = error.response?.data?.message || error.message || 'Something went wrong';
-      showMessage(message, 'error');
+      // showMessage(message, 'error');
       return Promise.reject(error);
     }
   );

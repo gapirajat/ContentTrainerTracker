@@ -1,14 +1,18 @@
 //
 // src/components/Carousel.jsx
+import { LockClosedIcon } from "@heroicons/react/solid";
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 
 // Function to fetch sessions data
 const fetchSessions = async (batch_name, authToken, setSessions, setError) => {
   try {
-    const response = await axios.get(`${import.meta.env.VITE_APP_HOST2}/session/all/${batch_name}`, {
-      headers: { Authorization: `Bearer ${authToken}` },
-    });
+    const response = await axios.get(
+      `${import.meta.env.VITE_APP_HOST2}/session/all/${batch_name}`,
+      {
+        headers: { Authorization: `Bearer ${authToken}` },
+      }
+    );
     setSessions(response.data);
   } catch (error) {
     console.error("Error fetching sessions:", error);
@@ -47,8 +51,12 @@ const Carousel = ({ props }) => {
 
   useEffect(() => {
     console.log("carousel use effect");
-    fetchSessions(props.batch_name, props.authToken, props.setSessions, setError)
-      .finally(() => setLoadingSessions(false));
+    fetchSessions(
+      props.batch_name,
+      props.authToken,
+      props.setSessions,
+      setError
+    ).finally(() => setLoadingSessions(false));
   }, [props.batch_name, props.authToken, props.setSessions]);
 
   return (
@@ -83,7 +91,7 @@ const Carousel = ({ props }) => {
                 authToken={props.authToken}
               />
             )}
-            <AddSessionCard handleAddSession={props.handleAddSession} />
+            {/* <AddSessionCard handleAddSession={props.handleAddSession} /> */}
           </div>
           <ScrollButton direction="right" onClick={() => scroll(300)} />
         </div>
@@ -162,7 +170,11 @@ function SessionCard({ session, handleSessionClick, setSessions, authToken }) {
     setIsUpdating(true);
     setUpdateError(null);
     try {
-      const updatedSession = await updateSessionStatus(session.session_id, newStatus, authToken);
+      const updatedSession = await updateSessionStatus(
+        session.session_id,
+        newStatus,
+        authToken
+      );
       // Update the session in the state
       setSessions((prevSessions) =>
         prevSessions.map((s) =>
@@ -207,11 +219,11 @@ function SessionCard({ session, handleSessionClick, setSessions, authToken }) {
       onClick={() => handleSessionClick(session)}
     >
       <div className="flex justify-between items-start mb-2">
-        
-
         <div className="relative ml-auto" ref={menuRef}>
           <button
-            className={`inline-flex items-center px-2 py-1 text-xs font-semibold rounded cursor-pointer focus:outline-none f ${statusColors[session?.completion]}`}
+            className={`inline-flex items-center px-2 py-1 text-xs font-semibold rounded cursor-pointer focus:outline-none f ${
+              statusColors[session?.completion]
+            }`}
             onClick={(e) => {
               e.stopPropagation(); // Prevent triggering the card click
               setIsMenuOpen(!isMenuOpen);
@@ -222,32 +234,35 @@ function SessionCard({ session, handleSessionClick, setSessions, authToken }) {
           >
             {getStatusIcon(session?.completion)}
             {statusDescriptions[session?.completion]}
+            {'    '}
+            {
+              session?.completion !== 'no' && <LockClosedIcon />
+            }
           </button>
 
           {/* Status Change Menu */}
-          {isMenuOpen && (
+          {isMenuOpen && session?.completion === 'no' && (
             <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded-lg shadow-lg z-20">
               <p className="text-gray-700 font-semibold px-4 py-2 border-b">
                 Change Status:
               </p>
               <div className="flex flex-col">
-                {Object.entries(statusDescriptions).map(([status, description]) => (
+                
+                
                   <button
-                    key={status}
-                    className={`text-left px-4 py-2 hover:bg-gray-100 flex items-center ${statusColors[status]}`}
+                    className={`text-left px-4 py-2 hover:bg-gray-100 flex items-center ${statusColors.yes}`}
                     onClick={(e) => {
                       e.stopPropagation(); // Prevent triggering the card click
-                      handleStatusChange(status);
+                      handleStatusChange("yes");
                     }}
                     disabled={isUpdating}
                   >
-                    {getStatusIcon(status)}
-                    {description}
+                    {getStatusIcon("yes")}
+                    {statusDescriptions.yes}
                   </button>
-                ))}
                 
               </div>
-              
+
               {isUpdating && (
                 <div className="px-4 py-2 text-center text-sm text-gray-500">
                   Updating...
@@ -261,11 +276,10 @@ function SessionCard({ session, handleSessionClick, setSessions, authToken }) {
             </div>
           )}
         </div>
-        
       </div>
       <h3 className="text-xl font-semibold text-gray-800">
-          {session?.topic?.topic_name}
-        </h3>
+        {session?.topic?.topic_name}
+      </h3>
       <div className="mt-2">
         <p className="text-gray-600">
           <strong>Date:</strong>{" "}
@@ -337,29 +351,29 @@ const getStatusIcon = (status) => {
   return icons[status] || null;
 };
 
-// AddSessionCard Component with gradient and hover effect
-function AddSessionCard({ handleAddSession }) {
-  return (
-    <div
-      className="min-w-[280px] h-64 flex-shrink-0 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-xl shadow-md p-6 flex items-center justify-center cursor-pointer hover:from-blue-600 hover:to-indigo-600 transition-colors duration-200"
-      onClick={handleAddSession}
-    >
-      <div className="text-center">
-        <svg
-          className="w-12 h-12 mx-auto text-white"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M12 4v16m8-8H4"
-          />
-        </svg>
-        <p className="mt-2 text-white font-semibold">Add New Session</p>
-      </div>
-    </div>
-  );
-}
+// // AddSessionCard Component with gradient and hover effect
+// function AddSessionCard({ handleAddSession }) {
+//   return (
+//     <div
+//       className="min-w-[280px] h-64 flex-shrink-0 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-xl shadow-md p-6 flex items-center justify-center cursor-pointer hover:from-blue-600 hover:to-indigo-600 transition-colors duration-200"
+//       onClick={handleAddSession}
+//     >
+//       <div className="text-center">
+//         <svg
+//           className="w-12 h-12 mx-auto text-white"
+//           fill="none"
+//           stroke="currentColor"
+//           viewBox="0 0 24 24"
+//         >
+//           <path
+//             strokeLinecap="round"
+//             strokeLinejoin="round"
+//             strokeWidth="2"
+//             d="M12 4v16m8-8H4"
+//           />
+//         </svg>
+//         <p className="mt-2 text-white font-semibold">Add New Session</p>
+//       </div>
+//     </div>
+//   );
+// }

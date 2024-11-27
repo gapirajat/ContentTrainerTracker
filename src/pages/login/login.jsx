@@ -23,7 +23,7 @@ function Login() {
       await login(username, password);
       await setSnackbarMessage("Logged In")
       await showSnackbar()
-      navigate(from, { replace: true });
+      // navigate(from, { replace: true });
     } catch (error) {
       console.log(error)
       alert('Login failed.:' + error.response.data.message);

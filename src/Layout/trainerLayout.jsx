@@ -3,12 +3,12 @@ import { Navigate, Outlet, useLocation } from "react-router-dom";
 import React from 'react';
 import Snackbar from "./snackbar";
 import { useGeneral } from "../context/generalContext";
-import Navbar from "../pages/admin/adminNavbar";
-import Sidebar from "../pages/admin/adminSidebar";
-import BottomNavbar from "../pages/admin/adminBottomNavbar";
 import { useAuth } from "../context/authContext";
+import Navbar from "../pages/trainer/trainerNavbar";
+import Sidebar from "../pages/trainer/trainerSidebar";
+import BottomNavbar from "../pages/trainer/trainerBottomNavbar";
 
-export default function AdminLayout() {
+export default function TrainerLayout() {
     const { isSnackbarOpen, hideSnackbar, snackbarMessage } = useGeneral();
     const {authToken} = useAuth()
     const location = useLocation();
@@ -26,8 +26,7 @@ export default function AdminLayout() {
     return (
         <>
             {(!authToken) ? (
-                null
-            //   <Navigate to="/login" state={{ from: location }} replace />
+              <Navigate to="/login" state={{ from: location }} replace />
             ) : (
                 <>        
                 <Navbar />

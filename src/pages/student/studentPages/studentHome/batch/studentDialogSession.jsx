@@ -4,8 +4,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useAuth } from "../../../../../../context/authContext";
-import { useGeneral } from "../../../../../../context/generalContext";
+import { useAuth } from "../../../../../context/authContext";
+import { useGeneral } from "../../../../../context/generalContext";
 
 function SessionDialog({ props }) {
   // {selectedSession, onClose, course_name}
@@ -189,13 +189,13 @@ function SessionDialog({ props }) {
               className="appearance-none block w-full px-4 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm"
             >
               <option value="" disabled>
-                Select topic
+              {formData.topic_name}
               </option>
-              {topics?.map((topic) => (
+              {/* {topics?.map((topic) => (
                 <option key={topic.topic_id} value={topic.topic_name}>
                   {topic.topic_name}
                 </option>
-              ))}
+              ))} */}
             </select>
           </div>
           {/* Start Time Picker */}
@@ -207,6 +207,7 @@ function SessionDialog({ props }) {
               showTimeSelect
               dateFormat="Pp"
               className="w-full mt-2 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              disabled={true}
             />
           </div>
           {/* End Time Picker */}
@@ -218,11 +219,12 @@ function SessionDialog({ props }) {
               showTimeSelect
               dateFormat="Pp"
               className="w-full mt-2 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              disabled={true}
             />
           </div>
           {/* Buttons */}
           <div className="flex justify-end mt-6">
-            {isEditMode && (
+            {/* {isEditMode && (
               <button
                 type="button"
                 onClick={() =>
@@ -232,14 +234,14 @@ function SessionDialog({ props }) {
               >
                 Delete
               </button>
-            )}
-            <button
+            )} */}
+            {/* <button
               type="submit"
               onClick={handleAddOrUpdateSession}
               className="px-6 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition-colors duration-200"
             >
               {isEditMode ? "Update Session" : "Add Session"}
-            </button>
+            </button> */}
           </div>
         </form>
       </div>
