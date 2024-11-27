@@ -83,9 +83,9 @@ const updateTopic = async (topic_id, topic_name, authToken, setSnackbarMessage, 
 
 // Component for rendering each topic
 const TopicItem = ({ topic, index, initialState, updateTopic, deleteTopic, authToken, setTopics, topics, setSnackbarMessage, showSnackbar }) => (
-  <div className="flex items-center justify-between border border-gray-200 p-2 rounded-md">
+  <div className="w-full flex items-center justify-between border border-gray-200 p-2 rounded-md">
     <input
-      className="text-black placeholder-black"
+      className="w-full text-black placeholder-black outline-none"
       onChange={(e) =>
         setTopics((topics) => {
           const updatedTopics = [...topics];

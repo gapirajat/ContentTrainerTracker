@@ -125,7 +125,7 @@ export default function DialogBoxForm({ props }) {
 // Extracted CourseNameInput component
 function CourseNameInput({ selection, setSelection, courseUpdate, initialState }) {
   return (
-    <div className="mb-4 relative">
+    <div className="mb-4 relative w-full">
       <label className="block text-gray-700 text-sm font-medium mb-1" htmlFor="courseName">
         Course Name
       </label>
