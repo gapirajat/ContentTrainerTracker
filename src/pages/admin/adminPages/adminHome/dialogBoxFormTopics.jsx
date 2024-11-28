@@ -82,7 +82,7 @@ const updateTopic = async (topic_id, topic_name, authToken, setSnackbarMessage, 
 };
 
 // Component for rendering each topic
-const TopicItem = ({ topic, index, initialState, updateTopic, deleteTopic, authToken, setTopics, topics, setSnackbarMessage, showSnackbar }) => (
+const TopicItem = ({ topic, index,initialState, updateTopic, deleteTopic, authToken, setTopics, topics, setSnackbarMessage, showSnackbar }) => (
   <div className="w-full flex items-center justify-between border border-gray-200 p-2 rounded-md">
     <input
       className="w-full text-black placeholder-black outline-none"
@@ -95,7 +95,7 @@ const TopicItem = ({ topic, index, initialState, updateTopic, deleteTopic, authT
       }
       value={topic?.topic_name}
     />
-    {initialState[index]?.topic_name && initialState[index]?.topic_name !== topic?.topic_name && (
+    {(initialState[index]?.topic_name && initialState[index]?.topic_name !== topic?.topic_name) && (
       <button
         type="button"
         onClick={() => updateTopic(topic?.topic_id, topic?.topic_name, authToken, setSnackbarMessage, showSnackbar)}
@@ -138,11 +138,15 @@ const TopicInputForm = ({ topicInput, setTopicInput, handleAddTopic }) => (
 const DialogBoxFormTopics = ({ props }) => {
   const [topicInput, setTopicInput] = useState('');
   const [initialState, setInitialState] = useState('');
+  const [initialTopicState, setInitialTopicState] = useState('');
   const { authToken } = useAuth();
   const { setSnackbarMessage, showSnackbar } = useGeneral();
 
   useEffect(() => {
     setInitialState(props.selection);
+    setInitialTopicState(props.topics);
+    console.log(initialState)
+    console.log("Save DialogBoxFromTopics",initialState, props.selection);
   }, [props.isDialogOpen]);
 
   useFetchTopics(initialState.course_name, authToken, props.setTopics);
@@ -163,7 +167,7 @@ const DialogBoxFormTopics = ({ props }) => {
             key={index}
             topic={topic}
             index={index}
-            initialState={initialState}
+            initialState={initialTopicState}
             updateTopic={updateTopic}
             deleteTopic={deleteTopic}
             authToken={authToken}
