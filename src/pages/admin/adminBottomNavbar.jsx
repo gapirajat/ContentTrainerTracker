@@ -1,6 +1,6 @@
 // BottomNavbar.js
 import React, { useState } from 'react';
-import { HomeIcon, UserAddIcon, BellIcon, UserIcon, CogIcon } from '@heroicons/react/outline'; // Import icons from Heroicons
+import { HomeIcon, UserAddIcon, ChatIcon, UserIcon, CogIcon } from '@heroicons/react/outline'; // Import icons from Heroicons
 import { useGeneral } from '../../context/generalContext';
 
 const BottomNavbar = () => {
@@ -34,13 +34,13 @@ const BottomNavbar = () => {
 
         {/* Notifications Icon */}
         <div
-          onClick={() => setSidebarSelection('Notifications')}
+          onClick={() => setSidebarSelection('Messages')}
           className={`flex flex-col items-center cursor-pointer ${
-            sidebarSelection === 'Notifications' ? 'text-blue-600' : 'text-gray-500'
+            sidebarSelection === 'Messages' ? 'text-blue-600' : 'text-gray-500'
           }`}
         >
-          <BellIcon className="h-6 w-6" />
-          <span className="text-xs">Notifications</span>
+          <ChatIcon className="h-6 w-6" />
+          <span className="text-xs">Messages</span>
         </div>
 
         {/* Profile Icon */}

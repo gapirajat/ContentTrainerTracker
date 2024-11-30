@@ -1,6 +1,6 @@
 // Sidebar.js
 import React, { useState } from 'react';
-import { HomeIcon, UserAddIcon, BellIcon, UserIcon, CogIcon } from '@heroicons/react/outline';
+import { HomeIcon, UserAddIcon, ChatIcon, UserIcon, CogIcon } from '@heroicons/react/outline';
 import { useGeneral } from '../../context/generalContext';
 
 const Sidebar = () => {
@@ -10,14 +10,14 @@ const Sidebar = () => {
   const menuItems = [
     { name: 'Home', icon: HomeIcon },
     { name: 'Register', icon: UserAddIcon },
-    { name: 'Notifications', icon: BellIcon },
+    { name: 'Messages', icon: ChatIcon },
     { name: 'Profile', icon: UserIcon },
     { name: 'Settings', icon: CogIcon },
   ];
 
   return (
     <div
-      className={`fixed top-0 left-0 h-full bg-gray-50 shadow-lg transform transition-all mt-[4rem] max-lg:hidden duration-300 ease-in-out z-[3] ${
+      className={`fixed top-0 left-0 h-full bg-gray-50 shadow-lg transform transition-all mt-[4rem] max-lg:hidden duration-300 ease-in-out z-[3] rounded-tr-sm ${
         sidebar ? 'w-3/5' : 'w-16'
       }`}
     >

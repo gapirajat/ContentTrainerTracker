@@ -30,6 +30,7 @@ export default function TrainerLayout() {
             ) : (
                 <>        
                 <Navbar />
+                <AnnouncementBanner/>
                 <Sidebar />
                 <Outlet />
                 <Snackbar

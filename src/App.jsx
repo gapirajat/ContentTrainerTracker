@@ -10,7 +10,7 @@ import Coordinator from './pages/coordinator/coordinator';
 import TrainerHome from './pages/trainer/trainerPages/trainerHome/trainerHome.jsx';
 import AdminHome from './pages/admin/adminPages/adminHome/adminHome';
 import AdminRegister from './pages/admin/adminPages/adminRegister/adminRegister.jsx';
-import AdminNotifications from './pages/admin/adminPages/adminNotifications';
+import AdminMessages from './pages/admin/adminPages/adminMessages/adminMessages.jsx';
 import AdminProfile from './pages/admin/adminPages/adminProfile';
 import AdminSettings from './pages/admin/adminPages/adminSettings';
 import Course from './pages/admin/adminPages/adminHome/course/course';
@@ -22,6 +22,7 @@ import TrainerBatch from './pages/trainer/trainerPages/trainerHome/batch/batch.j
 import StudentLayout from './Layout/studentLayout.jsx';
 import StudentHome from './pages/student/studentPages/studentHome/studentHome.jsx';
 import StudentBatch from './pages/student/studentPages/studentHome/batch/batch.jsx';
+import Announcement from './pages/admin/adminPages/adminMessages/announcement/announcement.jsx';
 
 
 
@@ -82,7 +83,10 @@ function AdminRoutes() {
       <Route element={<AdminLayout />}>
         <Route path="/Home" element={<AdminHome />} />
         <Route path="/Register" element={<AdminRegister />} />
-        <Route path="/Notifications" element={<AdminNotifications />} />
+
+        <Route path="/Messages" element={<AdminMessages />} />
+        <Route path="/Messages/announcement" element={<Announcement />} />
+
         <Route path="/Profile" element={<AdminProfile />} />
         <Route path="/Settings" element={<AdminSettings />} />
 
@@ -114,7 +118,7 @@ function TrainerRoutes() {
       <Route element={<TrainerLayout />}>
         <Route path="/Home" element={<TrainerHome />} />
         <Route path="/Register" element={<TrainerHome />} />
-        <Route path="/Notifications" element={<TrainerHome />} />
+        <Route path="/Messages" element={<TrainerHome />} />
         <Route path="/Profile" element={<TrainerHome />} />
         <Route path="/Settings" element={<TrainerHome />} />
 
@@ -146,7 +150,7 @@ function StudentRoutes() {
       <Route element={<StudentLayout />}> {/* Use a different layout if available */}
         <Route path="/Home" element={<StudentHome />} />
         <Route path="/Register" element={<AdminRegister />} />
-        <Route path="/Notifications" element={<AdminNotifications />} />
+        <Route path="/Messages" element={<AdminMessages />} />
         <Route path="/Profile" element={<AdminProfile />} />
         <Route path="/Settings" element={<AdminSettings />} />
 
@@ -176,7 +180,7 @@ function CoordinatorRoutes() {
       <Route element={<AdminLayout />}> {/* Use a different layout if available */}
         <Route path="/Home" element={<AdminHome />} />
         <Route path="/Register" element={<AdminRegister />} />
-        <Route path="/Notifications" element={<AdminNotifications />} />
+        <Route path="/Messages" element={<AdminMessages />} />
         <Route path="/Profile" element={<AdminProfile />} />
         <Route path="/Settings" element={<AdminSettings />} />
 

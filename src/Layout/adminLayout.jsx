@@ -7,6 +7,10 @@ import Navbar from "../pages/admin/adminNavbar";
 import Sidebar from "../pages/admin/adminSidebar";
 import BottomNavbar from "../pages/admin/adminBottomNavbar";
 import { useAuth } from "../context/authContext";
+import AnnouncementBanner from "./banner";
+import { fetchAnnouncement } from '../generalSlice/generalSlice'
+import { useDispatch } from "react-redux";
+
 
 export default function AdminLayout() {
     const { isSnackbarOpen, hideSnackbar, snackbarMessage } = useGeneral();
@@ -16,11 +20,20 @@ export default function AdminLayout() {
     console.log(((!authToken)===true))
     console.log(location.pathname)
 
+    const dispatch = useDispatch();
+
     useEffect(() => {
       console.log("authToken")
       console.log(!authToken)
       console.log(authToken)
     }, [authToken])
+
+    useEffect(() => {
+        // Replace with actual token retrieval logic
+        console.log("first")
+        dispatch(fetchAnnouncement());
+
+      }, [dispatch]);
     
 
     return (
@@ -29,8 +42,10 @@ export default function AdminLayout() {
                 null
             //   <Navigate to="/login" state={{ from: location }} replace />
             ) : (
-                <>        
+                <>
+                        
                 <Navbar />
+                <AnnouncementBanner/>
                 <Sidebar />
                 <Outlet />
                 <Snackbar

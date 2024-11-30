@@ -17,7 +17,7 @@ const Sidebar = () => {
 
   return (
     <div
-      className={`fixed top-0 left-0 h-full bg-gray-50 shadow-lg transform transition-all mt-[4rem] max-lg:hidden duration-300 ease-in-out z-[3] ${
+      className={`fixed top-0 left-0 h-full bg-gray-50 shadow-lg transform transition-all mt-[4rem] max-lg:hidden duration-300 ease-in-out z-[3] rounded-tr-sm ${
         sidebar ? 'w-3/5' : 'w-16'
       }`}
     >

@@ -30,6 +30,7 @@ export default function StudentLayout() {
             ) : (
                 <>        
                 <Navbar />
+                <AnnouncementBanner/>
                 <Sidebar />
                 <Outlet />
                 <Snackbar
