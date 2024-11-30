@@ -86,7 +86,7 @@ const announcementSlice = createSlice({
       .addCase(fetchAnnouncement.fulfilled, (state, action) => {
         // console.log(action.payload[0].announcement);
         state.loading = false;
-        state.currentAnnouncement = action.payload[0]; // Ensure payload matches currentAnnouncement structure
+        state.currentAnnouncement = action.payload ?? null; // Ensure payload matches currentAnnouncement structure
       })
       .addCase(fetchAnnouncement.rejected, (state, action) => {
         state.loading = false;
@@ -102,7 +102,7 @@ const announcementSlice = createSlice({
       })
       .addCase(setAnnouncement.fulfilled, (state, action) => {
         state.loading = false;
-        state.currentAnnouncement = action.payload[0]; // Directly assign the payload
+        state.currentAnnouncement = action.payload ?? null; // Directly assign the payload
         state.successMessage = "Announcement set successfully!";
       })
       .addCase(setAnnouncement.rejected, (state, action) => {

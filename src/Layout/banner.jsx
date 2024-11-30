@@ -16,7 +16,7 @@ const AnnouncementBanner = () => {
   return (
     
     <div className="z-[3] lg:w-[100%] max-lg:w-[100%] bg-yellow-300 text-gray-800 py-3 px-4 md:px-6 flex flex-col md:flex-row items-center justify-between absolute">
-      <div className="text-sm md:text-base flex flex-col md:flex-row items-center text-center md:text-left ml-[4rem]">
+      <div className="text-sm md:text-base flex flex-col md:flex-row items-center text-center md:text-left lg:ml-[4rem]">
         <span className="font-semibold">Announcement:</span>
         <span className="ml-0 md:ml-2 mt-1 md:mt-0">{message}</span>
         {link && (

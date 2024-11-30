@@ -56,7 +56,7 @@ const generalSlice = createSlice({
       state.isVisible = false;
     },
     setAnnouncement: (state, action) => {
-      const { announcement, link } = action.payload?.[0] ?? null;;
+      const { announcement, link } = action.payload ?? null;;
       // console.log("payload");
       state.message = announcement;
       state.link = link || null;
@@ -73,9 +73,9 @@ const generalSlice = createSlice({
       .addCase(fetchAnnouncement.fulfilled, (state, action) => {
         // console.log(action.payload[0].announcement);
         state.loading = false;
-        state.message = action.payload?.[0]?.announcement ?? null;
+        state.message = action.payload?.announcement ?? null;
         state.link = action.payload.link || null;//not implemtned
-        state.isVisible = shouldBeVisible(action.payload?.[0]?.announcement ?? null);
+        state.isVisible = shouldBeVisible(action.payload?.announcement ?? null);
       })
       .addCase(fetchAnnouncement.rejected, (state, action) => {
         state.loading = false;
