@@ -84,7 +84,7 @@ const announcementSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchAnnouncement.fulfilled, (state, action) => {
-        console.log(action.payload[0].announcement);
+        // console.log(action.payload[0].announcement);
         state.loading = false;
         state.currentAnnouncement = action.payload[0]; // Ensure payload matches currentAnnouncement structure
       })
