@@ -308,10 +308,14 @@ const SubmitButton = ({ isDisabled, isLoading }) => (
 // Complaints List 
 
 
-const ComplaintsList = ({ complaints, fetchStatus, fetchError, onPendingClick }) => {
+const ComplaintsList = ({ complaints, fetchStatus, fetchError, onPendingClick, fetchAllComplaints }) => {
   console.log(complaints)
-  const resolved = complaints.filter((c) => c.isResolved);
-  const unresolved = complaints.filter((c) => !c.isResolved);
+  useEffect(() => {
+    fetchAllComplaints();
+  }, [])
+  // if (complaints == null) return null
+  const resolved = complaints?.filter((c) => c.isResolved);
+  const unresolved = complaints?.filter((c) => !c.isResolved);
 
   return (
     <div className="w-full max-w-4xl mt-8">
@@ -341,9 +345,9 @@ const ComplaintsList = ({ complaints, fetchStatus, fetchError, onPendingClick })
             <h3 className="text-2xl font-semibold text-green-600 mb-4 flex items-center">
               <CheckCircleIcon className="h-6 w-6 mr-2" /> Resolved Complaints
             </h3>
-            {resolved.length > 0 ? (
+            {resolved?.length > 0 ? (
               <div className="space-y-4">
-                {resolved.map((complaint) => (
+                {resolved?.map((complaint) => (
                   <div key={complaint.id} className="p-5 bg-white shadow rounded-lg flex justify-between items-center">
                     <div>
                       <h4 className="text-lg font-medium text-gray-700">{complaint.issue}</h4>
@@ -365,9 +369,9 @@ const ComplaintsList = ({ complaints, fetchStatus, fetchError, onPendingClick })
             <h3 className="text-2xl font-semibold text-yellow-600 mb-4 flex items-center">
               <ExclamationIcon className="h-6 w-6 mr-2" /> Pending Complaints
             </h3>
-            {unresolved.length > 0 ? (
+            {unresolved?.length > 0 ? (
               <div className="space-y-4">
-                {unresolved.map((complaint) => (
+                {unresolved?.map((complaint) => (
                   <div key={complaint.id} className="p-5 bg-white shadow rounded-lg flex justify-between items-center">
                     <div>
                       <h4 className="text-lg font-medium text-gray-700">{complaint.issue}</h4>
@@ -526,8 +530,10 @@ const AdminComplaintForm = () => {
             />
           </form>
         ) : (
+          complaints &&
           <ComplaintsList
-            complaints={complaints.complaints}
+          fetchAllComplaints={() => fetchAllComplaints(dispatch)}
+            complaints={complaints?.complaints}
             fetchStatus={fetchStatus}
             fetchError={fetchError}
             onPendingClick={openDialog} // Pass the openDialog function
