@@ -15,8 +15,8 @@ function Announcement() {
 }
 export default function AdminMessages() {
   return (
-    <div className='lg:ml-[4.5rem]'>
-        <h1 className='text-3xl m-4 w-full mb-2'>Message</h1>
+    <div className='lg:ml-[5%] w-[95%]'>
+        <h1 className='text-3xl m-4 w-[95%] mb-2'>Message</h1>
         <br />
         <Announcement />
     </div>

@@ -1,7 +1,12 @@
 // src/store/announcementSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { fetchComplaints, postComplaint } from "./adminSliceIssue";
+import { fetchBatchesByUid } from "./adminSliceBatches";
+import { coordinatorsExtraReducers } from "./adminSliceCoordinators";
 
 import api from "../../../api/apiService";
+
+
 // Async thunk for fetching the current announcement
 export const fetchAnnouncement = createAsyncThunk(
   "announcement/fetchAnnouncement",
@@ -62,21 +67,55 @@ export const removeAnnouncement = createAsyncThunk(
   }
 );
 
+
+
 const announcementSlice = createSlice({
   name: "announcement",
   initialState: {
     currentAnnouncement: null, // Initialize as null or an appropriate default
+    // loading: false,
+    // error: null,
+    successMessage: "",
+    //batches
+    batches: [],
     loading: false,
     error: null,
-    successMessage: "",
+    //complaints
+    complaints: [],
+    fetchStatus: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
+    fetchError: null,
+    postStatus: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
+    postError: null,
+    //coordinators
+    coordinators: [],
   },
   reducers: {
     clearMessages: (state) => {
       state.error = null;
       state.successMessage = "";
     },
+    clearBatches: (state) => {
+        state.batches = [];
+        state.loading = false;
+        state.error = null;
+      },
   },
   extraReducers: (builder) => {
+    // Handle fetchBatchesByUid for feedback
+    builder
+    .addCase(fetchBatchesByUid.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    })
+    .addCase(fetchBatchesByUid.fulfilled, (state, action) => {
+      state.loading = false;
+      state.batches = action.payload; // action.payload is the batches array
+    })
+    .addCase(fetchBatchesByUid.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload || 'Failed to fetch batches';
+    });
+
     // Handle fetchAnnouncement
     builder
       .addCase(fetchAnnouncement.pending, (state) => {
@@ -126,9 +165,48 @@ const announcementSlice = createSlice({
         state.loading = false;
         state.error = action.payload || "Failed to remove announcement.";
       });
+
+      // Handle fetchComplaints
+      builder
+      .addCase(fetchComplaints.pending, (state) => {
+        state.fetchStatus = 'loading';
+        state.fetchError = null;
+      })
+      .addCase(fetchComplaints.fulfilled, (state, action) => {
+        state.fetchStatus = 'succeeded';
+        state.complaints = action.payload;
+      })
+      .addCase(fetchComplaints.rejected, (state, action) => {
+        state.fetchStatus = 'failed';
+        state.fetchError = action.payload || action.error.message;
+      });
+
+    // Handle postComplaint
+    builder
+      .addCase(postComplaint.pending, (state) => {
+        state.postStatus = 'loading';
+        state.postError = null;
+      })
+      .addCase(postComplaint.fulfilled, (state, action) => {
+        state.postStatus = 'succeeded';
+        state.complaints.push(action.payload); // Add the new complaint to the list
+        alert('Your complaint has been submitted successfully!');
+      })
+      .addCase(postComplaint.rejected, (state, action) => {
+        state.postStatus = 'failed';
+        state.postError = action.payload || action.error.message;
+        alert(`Failed to submit complaint: ${state.postError}`);
+        
+      });
+
+      coordinatorsExtraReducers(builder)
   },
 });
 
 export const { clearMessages } = announcementSlice.actions;
 
 export default announcementSlice.reducer;
+
+export const selectBatches = (state) => state.admin.batches;
+export const selectBatchesLoading = (state) => state.admin.loading;
+export const selectBatchesError = (state) => state.admin.error;

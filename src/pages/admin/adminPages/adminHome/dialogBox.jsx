@@ -32,6 +32,7 @@ const DialogBox = ({ props }) => {
                 setSelection: props.setSelection,
                 setIsDialogOpen: props.setIsDialogOpen,
                 isDialogOpen: props.isDialogOpen,
+                coordinator: props.coordinator,
               }}
             />
           </div>

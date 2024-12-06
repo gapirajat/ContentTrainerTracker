@@ -87,15 +87,20 @@ const Navbar = () => {
         </button>
 
         {/* Dropdown Menu */}
-        {dropdownOpen && (
-          <div className="absolute right-0 mt-2 w-36 bg-white border border-gray-200 rounded-md shadow-lg z-50">
+        {dropdownOpen && (<div className='relative'>
+          <div className='pt-2 absolute right-0 w-36'>
+          <div className="absolute right-0 w-36 bg-white border border-gray-200 rounded-md shadow-lg z-50 transition-all">
             <button
               onClick={handleLogout}
-              className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200"
+              className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 transition-all duration-200"
             >
               Logout
             </button>
           </div>
+          </div>
+
+        </div>
+
         )}
       </div>
     </nav>

@@ -18,12 +18,12 @@ const SearchBar = () => {
       setLoading(true);
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_APP_HOST2}/users/search`,
+          `${import.meta.env.VITE_APP_HOST2}/users/find`,
           {
             headers: {
               Authorization: `Bearer ${authToken}`,
             },
-            params: { name: searchQuery },
+            params: { q: searchQuery },
           }
         );
         setResults(response.data.data);

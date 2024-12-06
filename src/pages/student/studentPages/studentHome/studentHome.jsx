@@ -62,7 +62,7 @@ export default function StudentHome() {
   const goBack = () => navigate(-1); // Goes to the previous page in the history stack
 
   return (
-    <div className="lg:ml-[4.5rem]">
+    <div className="lg:ml-[5%] w-[95%]">
         <h1 className='text-3xl m-4 w-full mb-2'>Enrolled Batches</h1>
       {/* BreadCrumb
       <h1 className="text-3xl m-4">

@@ -1,20 +1,29 @@
 // src/components/AnnouncementForm.js
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setAnnouncement, removeAnnouncement, clearMessages, fetchAnnouncement } from "../../../adminSlice/adminSlice";
+import {
+  setAnnouncement,
+  removeAnnouncement,
+  clearMessages,
+  fetchAnnouncement,
+} from "../../../adminSlice/adminSlice";
+import { useNavigate } from "react-router-dom";
 
 // Extracted Handler Functions
 const handleSet = async (e, announcement, dispatch) => {
-    e.preventDefault();
-    if (announcement.trim() === "") {
-      dispatch({ type: "announcement/setAnnouncement/rejected", payload: "Announcement cannot be empty." });
-      return;
-    }
-    dispatch(setAnnouncement(announcement));
+  e.preventDefault();
+  if (announcement.trim() === "") {
+    dispatch({
+      type: "announcement/setAnnouncement/rejected",
+      payload: "Announcement cannot be empty.",
+    });
+    return;
+  }
+  dispatch(setAnnouncement(announcement));
 };
-  
+
 const handleRemove = (dispatch) => {
-    dispatch(removeAnnouncement());
+  dispatch(removeAnnouncement());
 };
 
 // Message Component
@@ -27,9 +36,7 @@ const Message = ({ type, text }) => {
       : "bg-red-100 text-red-700";
 
   return (
-    <div className={`mb-4 text-sm p-3 rounded ${messageStyles}`}>
-      {text}
-    </div>
+    <div className={`mb-4 text-sm p-3 rounded ${messageStyles}`}>{text}</div>
   );
 };
 
@@ -115,6 +122,7 @@ export default function Announcement() {
   const [announcementInput, setAnnouncementInput] = useState("");
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { currentAnnouncement, loading, error, successMessage } = useSelector(
     (state) => state.admin
@@ -136,40 +144,51 @@ export default function Announcement() {
   }, [error, successMessage, dispatch]);
 
   return (
-    <div className="min-h-screen bg-white flex items-center justify-center px-4">
-      <div className="max-w-md w-full bg-white p-8">
-        {/* Title */}
-        <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
-          Announcement
-        </h2>
+    <>
+      <div className="min-h-screen bg-white flex flex-col items-center justify-center px-4">
+      <button
+        className="text-lg mx-2 ml-8 text-gray-500 mr-auto mt-[0]"
+        onClick={() => navigate(-1)}
+      >
+        ← Back
+      </button>
+        <div className="max-w-md w-full bg-white p-8">
+          {/* Title */}
+          <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
+            Announcement
+          </h2>
 
-        {/* Message */}
-        <Message type={error ? "error" : "success"} text={error || successMessage} />
-
-        {/* Current Announcement */}
-        <CurrentAnnouncementDisplay announcement={currentAnnouncement} />
-
-        {/* Form */}
-        <form
-          onSubmit={(e) => handleSet(e, announcementInput, dispatch)}
-          className="space-y-4"
-        >
-          {/* Announcement Input */}
-          <AnnouncementInput
-            value={announcementInput}
-            onChange={(e) => setAnnouncementInput(e.target.value)}
-            disabled={loading}
+          {/* Message */}
+          <Message
+            type={error ? "error" : "success"}
+            text={error || successMessage}
           />
 
-          {/* Buttons */}
-          <AnnouncementButtons
-            onRemove={() => handleRemove(dispatch)}
-            loading={loading}
-            isSetDisabled={announcementInput.trim() === ""}
-            isRemoveDisabled={!currentAnnouncement || loading}
-          />
-        </form>
+          {/* Current Announcement */}
+          <CurrentAnnouncementDisplay announcement={currentAnnouncement} />
+
+          {/* Form */}
+          <form
+            onSubmit={(e) => handleSet(e, announcementInput, dispatch)}
+            className="space-y-4"
+          >
+            {/* Announcement Input */}
+            <AnnouncementInput
+              value={announcementInput}
+              onChange={(e) => setAnnouncementInput(e.target.value)}
+              disabled={loading}
+            />
+
+            {/* Buttons */}
+            <AnnouncementButtons
+              onRemove={() => handleRemove(dispatch)}
+              loading={loading}
+              isSetDisabled={announcementInput.trim() === ""}
+              isRemoveDisabled={!currentAnnouncement || loading}
+            />
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

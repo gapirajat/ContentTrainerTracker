@@ -7,6 +7,7 @@ import { useAuth } from "../context/authContext";
 import Navbar from "../pages/student/studentNavbar";
 import Sidebar from "../pages/student/studentSidebar";
 import BottomNavbar from "../pages/student/studentBottomNavbar";
+import AnnouncementBanner from "./banner";
 
 export default function StudentLayout() {
     const { isSnackbarOpen, hideSnackbar, snackbarMessage } = useGeneral();

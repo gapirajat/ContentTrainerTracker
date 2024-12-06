@@ -11,7 +11,6 @@ import TrainerHome from './pages/trainer/trainerPages/trainerHome/trainerHome.js
 import AdminHome from './pages/admin/adminPages/adminHome/adminHome';
 import AdminRegister from './pages/admin/adminPages/adminRegister/adminRegister.jsx';
 import AdminMessages from './pages/admin/adminPages/adminMessages/adminMessages.jsx';
-import AdminProfile from './pages/admin/adminPages/adminProfile';
 import AdminSettings from './pages/admin/adminPages/adminSettings';
 import Course from './pages/admin/adminPages/adminHome/course/course';
 import Batch from './pages/admin/adminPages/adminHome/course/batch/batch';
@@ -23,6 +22,10 @@ import StudentLayout from './Layout/studentLayout.jsx';
 import StudentHome from './pages/student/studentPages/studentHome/studentHome.jsx';
 import StudentBatch from './pages/student/studentPages/studentHome/batch/batch.jsx';
 import Announcement from './pages/admin/adminPages/adminMessages/announcement/announcement.jsx';
+// import FeedbackForm from './pages/student/studentPages/studentFeedback/studentFeedback.jsx';
+// import IssueFeedbackForm from './pages/student/studentPages/studentFeedback/studentFeedback.jsx';
+import SubmitComplaintForm from './pages/student/studentPages/studentFeedback/studentFeedback.jsx';
+import AdminComplaintForm from './pages/admin/adminPages/adminFeedback/AdminComplaintForm.jsx';
 
 
 
@@ -87,7 +90,7 @@ function AdminRoutes() {
         <Route path="/Messages" element={<AdminMessages />} />
         <Route path="/Messages/announcement" element={<Announcement />} />
 
-        <Route path="/Profile" element={<AdminProfile />} />
+        <Route path="/Feedback" element={<AdminComplaintForm />} />
         <Route path="/Settings" element={<AdminSettings />} />
 
         {/* Nested Routes for Courses and Batches */}
@@ -149,10 +152,7 @@ function StudentRoutes() {
     <Routes>
       <Route element={<StudentLayout />}> {/* Use a different layout if available */}
         <Route path="/Home" element={<StudentHome />} />
-        <Route path="/Register" element={<AdminRegister />} />
-        <Route path="/Messages" element={<AdminMessages />} />
-        <Route path="/Profile" element={<AdminProfile />} />
-        <Route path="/Settings" element={<AdminSettings />} />
+        <Route path="/Feedback" element={<SubmitComplaintForm />} />
 
         {/* Nested Routes for Courses and Batches */}
         <Route path="/Home/:course_name/:batch_name" element={<StudentBatch />} />
@@ -181,7 +181,7 @@ function CoordinatorRoutes() {
         <Route path="/Home" element={<AdminHome />} />
         <Route path="/Register" element={<AdminRegister />} />
         <Route path="/Messages" element={<AdminMessages />} />
-        <Route path="/Profile" element={<AdminProfile />} />
+        <Route path="/Feedback" element={<AdminComplaintForm />} />
         <Route path="/Settings" element={<AdminSettings />} />
 
         {/* Nested Routes for Courses and Batches */}

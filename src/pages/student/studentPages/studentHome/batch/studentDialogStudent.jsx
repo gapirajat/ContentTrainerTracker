@@ -103,7 +103,7 @@ function StudentDialog({props}) {
   const fetchStudents = async (authToken, searchTerm, setStudentOptions) => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_APP_HOST2}/users/search`,
+        `${import.meta.env.VITE_APP_HOST2}/users/find`,
         {
           params: { role: "student", query: searchTerm },
           headers: { Authorization: `Bearer ${authToken}` },

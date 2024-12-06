@@ -74,7 +74,7 @@ const deleteTrainer = async (authToken, batch_name) => {
 // Fetch Trainers Function
 const fetchTrainers = async (authToken, setTrainersOptions) => {
   try {
-    const response = await axios.get(`${import.meta.env.VITE_APP_HOST2}/users/search?role=trainer`, {
+    const response = await axios.get(`${import.meta.env.VITE_APP_HOST2}/users/find?role=trainer`, {
       headers: { Authorization: `Bearer ${authToken}` },
     });
     console.log(JSON.stringify(response) + " fetchTrainer response");

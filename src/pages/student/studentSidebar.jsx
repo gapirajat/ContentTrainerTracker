@@ -1,6 +1,6 @@
 // Sidebar.js
 import React, { useState } from 'react';
-import { HomeIcon, UserAddIcon, BellIcon, UserIcon, CogIcon } from '@heroicons/react/outline';
+import { HomeIcon, UserAddIcon, SpeakerphoneIcon, UserIcon, CogIcon } from '@heroicons/react/outline';
 import { useGeneral } from '../../context/generalContext';
 
 const Sidebar = () => {
@@ -10,7 +10,7 @@ const Sidebar = () => {
   const menuItems = [
     { name: 'Home', icon: HomeIcon },
     // { name: 'Register', icon: UserAddIcon },
-    // { name: 'Notifications', icon: BellIcon },
+    { name: 'Feedback', icon: SpeakerphoneIcon },
     // { name: 'Profile', icon: UserIcon },
     // { name: 'Settings', icon: CogIcon },
   ];

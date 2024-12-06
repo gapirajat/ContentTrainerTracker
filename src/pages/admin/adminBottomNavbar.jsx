@@ -1,6 +1,6 @@
 // BottomNavbar.js
 import React, { useState } from 'react';
-import { HomeIcon, UserAddIcon, ChatIcon, UserIcon, CogIcon } from '@heroicons/react/outline'; // Import icons from Heroicons
+import { HomeIcon, UserAddIcon, ChatIcon, UserIcon, CogIcon, SpeakerphoneIcon } from '@heroicons/react/outline'; // Import icons from Heroicons
 import { useGeneral } from '../../context/generalContext';
 
 const BottomNavbar = () => {
@@ -32,7 +32,7 @@ const BottomNavbar = () => {
           <span className="text-xs">Register</span>
         </div>
 
-        {/* Notifications Icon */}
+        {/* Messages Icon */}
         <div
           onClick={() => setSidebarSelection('Messages')}
           className={`flex flex-col items-center cursor-pointer ${
@@ -43,15 +43,15 @@ const BottomNavbar = () => {
           <span className="text-xs">Messages</span>
         </div>
 
-        {/* Profile Icon */}
+        {/* Feedback Icon */}
         <div
-          onClick={() => setSidebarSelection('Profile')}
+          onClick={() => setSidebarSelection('Feedback')}
           className={`flex flex-col items-center cursor-pointer ${
             sidebarSelection === 'Profile' ? 'text-blue-600' : 'text-gray-500'
           }`}
         >
-          <UserIcon className="h-6 w-6" />
-          <span className="text-xs">Profile</span>
+          <SpeakerphoneIcon className="h-6 w-6" />
+          <span className="text-xs">Feedback</span>
         </div>
 
         {/* Settings Icon */}
