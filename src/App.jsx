@@ -11,7 +11,7 @@ import TrainerHome from './pages/trainer/trainerPages/trainerHome/trainerHome.js
 import AdminHome from './pages/admin/adminPages/adminHome/adminHome';
 import AdminRegister from './pages/admin/adminPages/adminRegister/adminRegister.jsx';
 import AdminMessages from './pages/admin/adminPages/adminMessages/adminMessages.jsx';
-import AdminSettings from './pages/admin/adminPages/adminSettings';
+import AdminSettings from './pages/admin/adminPages/dashboard/dashboard.jsx';
 import Course from './pages/admin/adminPages/adminHome/course/course';
 import Batch from './pages/admin/adminPages/adminHome/course/batch/batch';
 
@@ -26,6 +26,7 @@ import Announcement from './pages/admin/adminPages/adminMessages/announcement/an
 // import IssueFeedbackForm from './pages/student/studentPages/studentFeedback/studentFeedback.jsx';
 import SubmitComplaintForm from './pages/student/studentPages/studentFeedback/studentFeedback.jsx';
 import AdminComplaintForm from './pages/admin/adminPages/adminFeedback/AdminComplaintForm.jsx';
+import Dashboard from './pages/admin/adminPages/dashboard/dashboard.jsx';
 
 
 
@@ -91,7 +92,7 @@ function AdminRoutes() {
         <Route path="/Messages/announcement" element={<Announcement />} />
 
         <Route path="/Feedback" element={<AdminComplaintForm />} />
-        <Route path="/Settings" element={<AdminSettings />} />
+        <Route path="/Dashboard" element={<Dashboard />} />
 
         {/* Nested Routes for Courses and Batches */}
         <Route path="/Home/:course_name" element={<Course />} />

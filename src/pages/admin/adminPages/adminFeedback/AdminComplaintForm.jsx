@@ -134,7 +134,7 @@ const BatchDropdown = ({
 }) => (
   <div>
     <label htmlFor="batch" className="block text-gray-700 font-medium mb-2 ">
-      Select Your Batch
+      Select Coordinator
     </label>
     <div
       className="relative flex-shrink-0 w-full rounded-md"
@@ -148,7 +148,7 @@ const BatchDropdown = ({
           isBatchDropdownOpen ? 'rounded-b-none border-b-0' : ''
         }`}
       >
-        {selectedCoordinator?.name || 'Select Your Batch'}
+        {selectedCoordinator?.name || 'Select Coordinator'}
         <svg
           className={`fill-current h-4 w-4 transition-transform ${
             isBatchDropdownOpen ? 'transform rotate-180' : ''
@@ -220,9 +220,10 @@ const IssueAndMessageInput = ({
         {isIssueDropdownOpen && (
           <ul className="absolute z-10 top-full w-full bg-gray-100 rounded-b-md rounded-br-none shadow-lg">
             {[
-              'Billing',
-              'Technical Support',
-              'Account Management',
+              'Refund',
+              'Server',
+              'Schedule',
+              'Technical',
               'Other',
             ].map((option) => (
               <li
@@ -308,6 +309,7 @@ const SubmitButton = ({ isDisabled, isLoading }) => (
 
 
 const ComplaintsList = ({ complaints, fetchStatus, fetchError, onPendingClick }) => {
+  console.log(complaints)
   const resolved = complaints.filter((c) => c.isResolved);
   const unresolved = complaints.filter((c) => !c.isResolved);
 

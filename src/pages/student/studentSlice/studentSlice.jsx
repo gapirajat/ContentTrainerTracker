@@ -72,6 +72,7 @@ const initialState = {
   batches: [],
   loading: false,
   error: null,
+  // Complaints
   complaints: [],
   fetchStatus: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
   fetchError: null,
@@ -129,7 +130,7 @@ const batchesSlice = createSlice({
       })
       .addCase(postComplaint.fulfilled, (state, action) => {
         state.postStatus = 'succeeded';
-        state.complaints.push(action.payload); // Add the new complaint to the list
+        state.complaints = Array.isArray(action.payload) ? action.payload : [action.payload]; // Add the new complaint to the list
         alert('Your complaint has been submitted successfully!');
       })
       .addCase(postComplaint.rejected, (state, action) => {
@@ -140,6 +141,7 @@ const batchesSlice = createSlice({
       });
   },
 });
+
 
 export default batchesSlice.reducer;
 

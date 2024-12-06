@@ -5,6 +5,7 @@ import { fetchBatchesByUid } from "./adminSliceBatches";
 import { coordinatorsExtraReducers } from "./adminSliceCoordinators";
 
 import api from "../../../api/apiService";
+import { dashboardExtraReducers, processtrainerStatsExtraReducers } from "./adminSliceDashboard";
 
 
 // Async thunk for fetching the current announcement
@@ -88,6 +89,8 @@ const announcementSlice = createSlice({
     postError: null,
     //coordinators
     coordinators: [],
+    //dashboard,
+    data: null,
   },
   reducers: {
     clearMessages: (state) => {
@@ -189,8 +192,7 @@ const announcementSlice = createSlice({
       })
       .addCase(postComplaint.fulfilled, (state, action) => {
         state.postStatus = 'succeeded';
-        state.complaints.push(action.payload); // Add the new complaint to the list
-        alert('Your complaint has been submitted successfully!');
+        state.complaints = Array.isArray(action.payload) ? action.payload : [action.payload];
       })
       .addCase(postComplaint.rejected, (state, action) => {
         state.postStatus = 'failed';
@@ -200,6 +202,8 @@ const announcementSlice = createSlice({
       });
 
       coordinatorsExtraReducers(builder)
+      dashboardExtraReducers(builder)
+      processtrainerStatsExtraReducers(builder)
   },
 });
 

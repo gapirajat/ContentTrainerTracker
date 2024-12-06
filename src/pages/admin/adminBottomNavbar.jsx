@@ -1,6 +1,6 @@
 // BottomNavbar.js
 import React, { useState } from 'react';
-import { HomeIcon, UserAddIcon, ChatIcon, UserIcon, CogIcon, SpeakerphoneIcon } from '@heroicons/react/outline'; // Import icons from Heroicons
+import { HomeIcon, UserAddIcon, ChatIcon, UserIcon, CogIcon, SpeakerphoneIcon, ChartPieIcon } from '@heroicons/react/outline'; // Import icons from Heroicons
 import { useGeneral } from '../../context/generalContext';
 
 const BottomNavbar = () => {
@@ -47,7 +47,7 @@ const BottomNavbar = () => {
         <div
           onClick={() => setSidebarSelection('Feedback')}
           className={`flex flex-col items-center cursor-pointer ${
-            sidebarSelection === 'Profile' ? 'text-blue-600' : 'text-gray-500'
+            sidebarSelection === 'Feedback' ? 'text-blue-600' : 'text-gray-500'
           }`}
         >
           <SpeakerphoneIcon className="h-6 w-6" />
@@ -56,13 +56,13 @@ const BottomNavbar = () => {
 
         {/* Settings Icon */}
         <div
-          onClick={() => setSidebarSelection('Settings')}
+          onClick={() => setSidebarSelection('Dashboard')}
           className={`flex flex-col items-center cursor-pointer ${
-            sidebarSelection === 'Settings' ? 'text-blue-600' : 'text-gray-500'
+            sidebarSelection === 'Dashboard' ? 'text-blue-600' : 'text-gray-500'
           }`}
         >
-          <CogIcon className="h-6 w-6" />
-          <span className="text-xs">Settings</span>
+          <ChartPieIcon className="h-6 w-6" />
+          <span className="text-xs">Dashboard</span>
         </div>
       </div>
     </nav>
